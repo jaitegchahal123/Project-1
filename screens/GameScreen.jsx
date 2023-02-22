@@ -9,6 +9,12 @@ const names = Object.keys(nameToPic);
 
 export default function GameScreen() {
   // TODO: Declare and initialize state variables here, using "useState".
+  const [currScore, setcurrScore] = useState(0);
+  const [totalAttempts, settotalAttempts] = useState(0);
+  const [totalOptions, setTotalOptions] = ([]);
+  const [correctImage, setCorrectImage] = useState('');
+  const [correctName, setCorrectName] = useState('');
+  const [nameOptions, setNameOptions] = useState([]);
 
   // State for the timer is handled for you.
   const [timeLeft, setTimeLeft] = useState(5000);
@@ -21,16 +27,25 @@ export default function GameScreen() {
     } else {
       // Time has expired
       // TODO: update appropriate state variables
+      getNextRound();
+      setTimeLeft(5000);
+      settotalAttempts(totalAttempts+1);
     }
   };
 
   // This is used in the useEffect(...) hook bound on a specific STATE variable.
   // It updates state to present a new member & name options.
+
+  //ASK -- how to know what totalOptions && correctIMAGE is if you don't know the type
+
+  
+  //const [correctName, setCorrectName] = ("");
   const getNextRound = () => {
     // Fetches the next member name to guess.
     let correct = names[Math.floor(Math.random() * names.length)];
     let correctName = nameToPic[correct][0];
     let correctImage = nameToPic[correct][1];
+
 
     // Generate 3 more wrong answers.
     let nameOptions = [correctName];
@@ -42,15 +57,25 @@ export default function GameScreen() {
       }
     }
     nameOptions = shuffle(nameOptions);
-
     // TODO: Update state here.
-
+    //setTotalOptions([nameOptions]);
+  //  setCorrectName()
+    setCorrectImage(correctImage);
+    setCorrectName(correctName);
+    setNameOptions(nameOptions);
     setTimeLeft(5000);
   };
 
   // Called when user taps a name option.
   // TODO: Update correct # and total # state values.
-  const selectedNameChoice = (index) => {};
+  const selectedNameChoice = (index) => {
+    settotalAttempts(totalAttempts+1);
+    if(nameOptions[index] == correctName){
+      setcurrScore(currScore+1);
+    }
+    getNextRound();
+
+  };
 
   // Call the countDown() method every 10 milliseconds.
   useEffect(() => {
@@ -64,10 +89,13 @@ export default function GameScreen() {
   // get the next round when the appropriate state variable changes.
   useEffect(
     () => {
-      getNextRound();
+  //    if(timeLeft==0){
+        getNextRound();
+   //   }
     },
     [
       /* TODO: Your State Variable Goes Here */
+     // [currScore, totalAttempts]
     ]
   );
 
@@ -83,7 +111,7 @@ export default function GameScreen() {
         onPress={() => selectedNameChoice(j)}
       >
         <Text style={styles.buttonText}>
-          {/* TODO: Use something from state here. */}
+          {nameOptions[j]}
         </Text>
       </TouchableOpacity>
     );
@@ -92,9 +120,57 @@ export default function GameScreen() {
   const timeRemainingStr = (timeLeft / 1000).toFixed(2);
 
   // Style & return the view.
+  // return (
+  //   <View style = {styles.container}>
+  //     <Text style = {styles.scoreText}>
+  //       Current Score: {correct} / {total}
+  //     </Text>
+  //     <Text style = {styles.timerText}>
+  //       Time Remaining: {timeRemainingStr}
+  //     </Text>
+  //     <View style = {styles.imageView}>
+  //       <Image style = {styles.imageLogo} source = {correctImage}>
+  //       </Image>
+  //     </View>
+  //     <View>
+  //       {nameButtons}
+  //     </View>
+
+    
+  //   </View>
+  // );
   return (
     <View>
-      {/* TODO: Build out your UI using Text and Image components. */}
+      <Text style = {{
+        fontFamily: "Avenir",
+        fontWeight: "700",
+        fontSize: 24,
+        color: "#3498db",
+        textAlign: "center",
+        marginBottom: 10,
+      }}> 
+        Current Score: {currScore}/{totalAttempts}
+      </Text>
+  
+      <Text style = {{
+        fontFamily: "Avenir",
+        fontWeight: "700",
+        fontSize: 24,
+        color: "#e74c3c",
+        textAlign: "center",
+        marginBottom: 30,
+      }}> 
+        Time Remaining: {timeRemainingStr}
+      </Text>
+  
+       <Image
+        style = {styles.image}
+        source = {correctImage}
+      /> 
+
+
+      {nameButtons};
+  
       {/* Hint: What does the nameButtons list above hold? 
           What types of objects is this list storing?
           Try to get a sense of what's going on in the for loop above. */}
