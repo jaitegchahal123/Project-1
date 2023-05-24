@@ -120,60 +120,54 @@ export default function GameScreen() {
   const timeRemainingStr = (timeLeft / 1000).toFixed(2);
 
   // Style & return the view.
-  // return (
-  //   <View style = {styles.container}>
-  //     <Text style = {styles.scoreText}>
-  //       Current Score: {correct} / {total}
-  //     </Text>
-  //     <Text style = {styles.timerText}>
-  //       Time Remaining: {timeRemainingStr}
-  //     </Text>
-  //     <View style = {styles.imageView}>
-  //       <Image style = {styles.imageLogo} source = {correctImage}>
-  //       </Image>
-  //     </View>
-  //     <View>
-  //       {nameButtons}
-  //     </View>
-
-    
-  //   </View>
-  // );
   return (
-    <View>
-      <Text style = {{
-        fontFamily: "Avenir",
-        fontWeight: "700",
-        fontSize: 24,
-        color: "#3498db",
-        textAlign: "center",
-        marginBottom: 10,
-      }}> 
-        Current Score: {currScore}/{totalAttempts}
+    <View style = {styles.container}>
+      <Text style = {styles.scoreText}>
+        Current Score: {currScore} / {totalAttempts}
       </Text>
-  
-      <Text style = {{
-        fontFamily: "Avenir",
-        fontWeight: "700",
-        fontSize: 24,
-        color: "#e74c3c",
-        textAlign: "center",
-        marginBottom: 30,
-      }}> 
+      <Text style = {styles.timerText}>
         Time Remaining: {timeRemainingStr}
       </Text>
-  
-       <Image
-        style = {styles.image}
-        source = {correctImage}
-      /> 
+      <View style = {styles.image}>
+        <Image style = {styles.image} source = {correctImage}>
+        </Image>
+      </View>
+      <View>
+        {nameButtons}
+      </View>
 
-
-      {nameButtons};
-  
-      {/* Hint: What does the nameButtons list above hold? 
-          What types of objects is this list storing?
-          Try to get a sense of what's going on in the for loop above. */}
+    
     </View>
   );
+  // return (
+  //   <View>
+  //     <Text style = {{
+  //       fontFamily: "Avenir",
+  //       fontWeight: "700",
+  //       fontSize: 24,
+  //       color: "#3498db",
+  //       textAlign: "center",
+  //       marginBottom: 10,
+  //     }}> 
+  //       Current Score: {currScore}/{totalAttempts}
+  //     </Text>
+  
+  //     <Text style = {{
+  //       fontFamily: "Avenir",
+  //       fontWeight: "700",
+  //       fontSize: 24,
+  //       color: "#e74c3c",
+  //       textAlign: "center",
+  //       marginBottom: 30,
+  //     }}> 
+  //       Time Remaining: {timeRemainingStr}
+  //     </Text>
+  
+  //      <Image
+  //       style = {styles.image}
+  //       source = {correctImage}
+  //     /> 
+  //     {nameButtons};
+  //   </View>
+  // );
 }

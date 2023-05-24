@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   image: {
     justifyContent: "center",
     margin: 10,
-    height: "30%",
+    height: "40%",
     width: "100%",
     resizeMode: "contain",
   },
